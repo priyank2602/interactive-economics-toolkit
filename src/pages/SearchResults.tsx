@@ -45,11 +45,10 @@ const SearchResults = () => {
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-2xl font-bold">Search Results for: {searchQuery}</h1>
+          <h1 className="text-2xl font-bold">Results for: {searchQuery}</h1>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* Stock Price Chart */}
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h2 className="text-xl font-semibold mb-4">30 Day Stock Performance</h2>
             <div className="h-[400px]">
@@ -71,7 +70,6 @@ const SearchResults = () => {
             </div>
           </div>
 
-          {/* Market Events */}
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h2 className="text-xl font-semibold mb-4">Market Events</h2>
             <div className="space-y-4">
@@ -85,21 +83,21 @@ const SearchResults = () => {
           </div>
         </div>
 
-        {/* Next Best Actions */}
-        <div className="bg-white p-6 rounded-lg shadow-sm border mb-8">
-          <h2 className="text-xl font-semibold mb-4">Next Best Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {nextBestActions.map((action, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm font-medium">{action}</p>
-              </div>
-            ))}
+        <div className="bg-white p-6 rounded-lg shadow-sm border">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-xl font-semibold mb-6">Next Best Actions</h2>
+            <div className="grid grid-cols-1 gap-4 mb-8">
+              {nextBestActions.map((action, index) => (
+                <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-sm font-medium">{action}</p>
+                </div>
+              ))}
+            </div>
+            
+            <div className="pt-4 border-t">
+              <SearchBar />
+            </div>
           </div>
-        </div>
-
-        {/* Search Bar */}
-        <div className="border-t pt-8">
-          <SearchBar />
         </div>
       </main>
     </div>
