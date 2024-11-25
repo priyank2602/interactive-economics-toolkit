@@ -11,7 +11,7 @@ const Index = () => {
       <main className="container mx-auto px-4 pt-32 pb-16 space-y-12 flex-grow">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">iEAT</h1>
-          <p className="text-lg text-gray-600">Gen AI enabled product</p>
+          <p className="text-lg text-gray-600">Interactive Economic Analysis Tool</p>
         </div>
 
         <SearchBar />
