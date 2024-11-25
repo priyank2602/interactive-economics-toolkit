@@ -1,11 +1,14 @@
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 const SearchResults = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
 
   // Mock data for the chart
@@ -33,7 +36,17 @@ const SearchResults = () => {
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
-        <h1 className="text-2xl font-bold mb-8">Search Results for: {searchQuery}</h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate('/')}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-2xl font-bold">Search Results for: {searchQuery}</h1>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Stock Price Chart */}
