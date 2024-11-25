@@ -33,8 +33,8 @@ export default {
           foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "#FFFFFF",
-          foreground: "#333333",
+          DEFAULT: "hsl(var(--background))",
+          foreground: "hsl(var(--foreground))",
         },
       },
       borderRadius: {
