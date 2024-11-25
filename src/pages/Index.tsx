@@ -1,13 +1,14 @@
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { HighlightCard } from "@/components/HighlightCard";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
       
-      <main className="container mx-auto px-4 pt-32 pb-16 space-y-12">
+      <main className="container mx-auto px-4 pt-32 pb-16 space-y-12 flex-grow">
         <SearchBar />
         
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -31,6 +32,8 @@ const Index = () => {
           />
         </section>
       </main>
+
+      <Footer />
     </div>
   );
 };
