@@ -25,12 +25,20 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#9b87f5",
+          DEFAULT: "#6200ee",
           foreground: "#FFFFFF",
+          light: "#bb86fc",
+          dark: "#3700b3",
         },
         secondary: {
-          DEFAULT: "#8E9196",
-          foreground: "#FFFFFF",
+          DEFAULT: "#03dac6",
+          foreground: "#000000",
+          light: "#66fff9",
+          dark: "#00a896",
+        },
+        error: {
+          DEFAULT: "#b00020",
+          light: "#cf6679",
         },
         card: {
           DEFAULT: "hsl(var(--background))",
@@ -38,9 +46,23 @@ export default {
         },
       },
       borderRadius: {
-        lg: "1rem",
-        md: "0.75rem",
-        sm: "0.5rem",
+        lg: "0.5rem",
+        md: "0.25rem",
+        sm: "0.125rem",
+      },
+      spacing: {
+        '1': '8px',
+        '2': '16px',
+        '3': '24px',
+        '4': '32px',
+        '5': '40px',
+        '6': '48px',
+      },
+      elevation: {
+        1: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+        2: "0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12)",
+        3: "0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10)",
+        4: "0 15px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05)",
       },
       keyframes: {
         "fade-in": {

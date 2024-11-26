@@ -29,22 +29,24 @@ export const SearchBar = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask about economic insights..."
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pl-4 pr-10"
+          className="material-input pl-12"
         />
-        <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2">
-          <Search className="text-gray-400" />
+        <button type="submit" className="absolute left-4 top-1/2 -translate-y-1/2">
+          <Search className="text-gray-400 dark:text-gray-500" />
         </button>
       </form>
       
       {recentSearches.length > 0 && (
         <div className="space-y-2">
-          <p className="text-sm text-secondary">Suggested Queries</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Suggested Queries</p>
           <div className="flex flex-wrap gap-2">
             {recentSearches.map((search, index) => (
               <button
                 key={index}
                 onClick={() => setQuery(search)}
-                className="px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+                className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 rounded-full 
+                         hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors
+                         text-gray-700 dark:text-gray-300"
               >
                 {search}
               </button>
