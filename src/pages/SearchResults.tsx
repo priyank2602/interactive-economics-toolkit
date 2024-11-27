@@ -17,6 +17,7 @@ const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
+  const [showChart, setShowChart] = useState(false);
   const [tabs, setTabs] = useState<Tab[]>(() => {
     const savedTabs = sessionStorage.getItem('searchTabs');
     return savedTabs ? JSON.parse(savedTabs) : [];
@@ -56,13 +57,15 @@ const SearchResults = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
         <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
           <h2 className="text-xl font-semibold mb-4">Analysis Progress</h2>
-          <StepFlow />
+          <StepFlow onStep2Complete={() => setShowChart(true)} />
         </div>
 
-        <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
-          <h2 className="text-xl font-semibold mb-4">Stock Price Trend</h2>
-          <StockPriceChart />
-        </div>
+        {showChart && (
+          <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
+            <h2 className="text-xl font-semibold mb-4">Stock Price Trend</h2>
+            <StockPriceChart />
+          </div>
+        )}
       </div>
 
       <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
