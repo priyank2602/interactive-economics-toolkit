@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { StockPriceChart } from "./StockPriceChart";
 
 interface StepProps {
   step: number;
@@ -45,7 +46,6 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
   const [progress2, setProgress2] = useState(0);
   const [progress3, setProgress3] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const [step2Completed, setStep2Completed] = useState(false);
 
   useEffect(() => {
     const interval1 = setInterval(() => {
@@ -63,12 +63,12 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
   }, []);
 
   useEffect(() => {
-    if (currentStep === 2 && !step2Completed) {
+    if (currentStep === 2) {
       const interval2 = setInterval(() => {
         setProgress2((prev) => {
           if (prev >= 100) {
             clearInterval(interval2);
-            setStep2Completed(true);
+            setCurrentStep(3);
             onStep2Complete?.();
             return 100;
           }
@@ -78,11 +78,10 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
 
       return () => clearInterval(interval2);
     }
-  }, [currentStep, onStep2Complete, step2Completed]);
+  }, [currentStep, onStep2Complete]);
 
   useEffect(() => {
-    if (step2Completed && !isComplete) {
-      setCurrentStep(3);
+    if (currentStep === 3) {
       const interval3 = setInterval(() => {
         setProgress3((prev) => {
           if (prev >= 100) {
@@ -96,7 +95,7 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
 
       return () => clearInterval(interval3);
     }
-  }, [step2Completed, isComplete]);
+  }, [currentStep]);
 
   return (
     <div className="space-y-4">
@@ -127,6 +126,15 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
         />
       </Accordion>
       
+      {progress3 > 0 && (
+        <div className="mt-8">
+          <div className="bg-[#141414] border border-[#333333] p-6 rounded-lg">
+            <h3 className="text-xl font-semibold mb-4 text-white">Stock Price Trend</h3>
+            <StockPriceChart />
+          </div>
+        </div>
+      )}
+
       {isComplete && (
         <div className="mt-8 p-6 bg-[#141414] border border-[#333333] rounded-lg animate-fade-in">
           <h3 className="text-xl font-semibold mb-2 text-white">Insights</h3>
