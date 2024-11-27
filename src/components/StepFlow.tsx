@@ -1,5 +1,11 @@
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface StepProps {
   step: number;
@@ -10,18 +16,22 @@ interface StepProps {
 
 const Step = ({ step, title, description, progress }: StepProps) => {
   return (
-    <div className="flex flex-col gap-2 p-4 bg-white dark:bg-black rounded-lg shadow-sm border animate-fade-in">
-      <div className="flex items-center gap-4">
-        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-medium">
-          {step}
+    <AccordionItem value={`step-${step}`} className="border-none">
+      <AccordionTrigger className="hover:no-underline py-2">
+        <div className="flex items-center gap-4 w-full">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-medium">
+            {step}
+          </div>
+          <div className="flex flex-col items-start gap-1 flex-1">
+            <h3 className="text-lg font-semibold">{title}</h3>
+            <Progress value={progress} className="h-2 w-full" />
+          </div>
         </div>
-        <h3 className="text-lg font-semibold">{title}</h3>
-      </div>
-      <p className="text-secondary ml-12">{description}</p>
-      <div className="mt-2 ml-12">
-        <Progress value={progress} className="h-2" />
-      </div>
-    </div>
+      </AccordionTrigger>
+      <AccordionContent className="pl-12">
+        <p className="text-secondary">{description}</p>
+      </AccordionContent>
+    </AccordionItem>
   );
 };
 
@@ -29,9 +39,9 @@ export const StepFlow = () => {
   const [progress1, setProgress1] = useState(0);
   const [progress2, setProgress2] = useState(0);
   const [progress3, setProgress3] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // Animate progress bars sequentially
     const timer1 = setTimeout(() => {
       const interval1 = setInterval(() => {
         setProgress1((prev) => {
@@ -42,7 +52,6 @@ export const StepFlow = () => {
           return prev + 2;
         });
       }, 50);
-
       return () => clearInterval(interval1);
     }, 0);
 
@@ -56,7 +65,6 @@ export const StepFlow = () => {
           return prev + 2;
         });
       }, 50);
-
       return () => clearInterval(interval2);
     }, 2000);
 
@@ -65,12 +73,12 @@ export const StepFlow = () => {
         setProgress3((prev) => {
           if (prev >= 100) {
             clearInterval(interval3);
+            setIsComplete(true);
             return 100;
           }
           return prev + 2;
         });
       }, 50);
-
       return () => clearInterval(interval3);
     }, 4000);
 
@@ -83,24 +91,35 @@ export const StepFlow = () => {
 
   return (
     <div className="space-y-4">
-      <Step
-        step={1}
-        title="Data Collection"
-        description="Gathering relevant market data and financial indicators"
-        progress={progress1}
-      />
-      <Step
-        step={2}
-        title="Analysis"
-        description="Processing and analyzing market trends"
-        progress={progress2}
-      />
-      <Step
-        step={3}
-        title="Recommendations"
-        description="Generating actionable insights"
-        progress={progress3}
-      />
+      <Accordion type="single" collapsible className="space-y-4">
+        <Step
+          step={1}
+          title="Data Collection"
+          description="Gathering relevant market data and financial indicators"
+          progress={progress1}
+        />
+        <Step
+          step={2}
+          title="Analysis"
+          description="Processing and analyzing market trends"
+          progress={progress2}
+        />
+        <Step
+          step={3}
+          title="Recommendations"
+          description="Generating actionable insights"
+          progress={progress3}
+        />
+      </Accordion>
+      
+      {isComplete && (
+        <div className="mt-8 p-6 bg-white dark:bg-black rounded-lg border animate-fade-in">
+          <h3 className="text-xl font-semibold mb-4">Analysis Complete</h3>
+          <p className="text-secondary">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
