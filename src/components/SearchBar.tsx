@@ -7,11 +7,9 @@ export const SearchBar = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [recentSearches] = useState([
-    "Economic outlook 2024",
-    "Interest rates forecast",
-    "GDP growth analysis",
-    "Market volatility index",
-    "Banking sector performance",
+    "Build Story of the bank using CEO's opening statements",
+    "Fluctuations in CIB (Corporate & Investment Banking) or IB (Investment Banking) performance metrics?",
+    "Revenue composition changed compared to the last few quarters?",
   ]);
 
   const handleSearch = (value: string) => {
