@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -19,50 +18,28 @@ export default {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "#e2e8f0",
+        input: "#e2e8f0",
+        ring: "#9b87f5",
+        background: "#ffffff",
+        foreground: "#0f172a",
         primary: {
-          DEFAULT: "#6200ee",
+          DEFAULT: "#9b87f5",
           foreground: "#FFFFFF",
-          light: "#bb86fc",
-          dark: "#3700b3",
         },
         secondary: {
-          DEFAULT: "#03dac6",
-          foreground: "#000000",
-          light: "#66fff9",
-          dark: "#00a896",
-        },
-        error: {
-          DEFAULT: "#b00020",
-          light: "#cf6679",
+          DEFAULT: "#8E9196",
+          foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "hsl(var(--background))",
-          foreground: "hsl(var(--foreground))",
+          DEFAULT: "#ffffff",
+          foreground: "#0f172a",
         },
       },
       borderRadius: {
-        lg: "0.5rem",
-        md: "0.25rem",
-        sm: "0.125rem",
-      },
-      spacing: {
-        '1': '8px',
-        '2': '16px',
-        '3': '24px',
-        '4': '32px',
-        '5': '40px',
-        '6': '48px',
-      },
-      elevation: {
-        1: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
-        2: "0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12)",
-        3: "0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10)",
-        4: "0 15px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05)",
+        lg: "1rem",
+        md: "0.75rem",
+        sm: "0.5rem",
       },
       keyframes: {
         "fade-in": {
