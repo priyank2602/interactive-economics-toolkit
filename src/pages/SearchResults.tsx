@@ -11,13 +11,6 @@ const SearchResults = () => {
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
 
-  // Mock next best actions
-  const nextBestActions = [
-    "Review quarterly financial statements",
-    "Analyze competitor market position",
-    "Monitor industry regulatory changes",
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black">
       <Header />
@@ -49,19 +42,6 @@ const SearchResults = () => {
 
         <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-xl font-semibold mb-6">Next Best Actions</h2>
-            <div className="flex flex-wrap gap-4 mb-8">
-              {nextBestActions.map((action, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="flex-1 min-w-[200px] h-auto py-3 text-sm"
-                >
-                  {action}
-                </Button>
-              ))}
-            </div>
-            
             <div className="pt-4 border-t dark:border-gray-800">
               <SearchResultsBar />
             </div>
