@@ -11,13 +11,13 @@ import { useState, useEffect } from "react";
 interface Tab {
   id: string;
   query: string;
+  showChart?: boolean;
 }
 
 const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
-  const [showChart, setShowChart] = useState(false);
   const [tabs, setTabs] = useState<Tab[]>(() => {
     const savedTabs = sessionStorage.getItem('searchTabs');
     return savedTabs ? JSON.parse(savedTabs) : [];
@@ -31,7 +31,7 @@ const SearchResults = () => {
     if (searchQuery) {
       const newTabId = `tab-${Date.now()}`;
       if (!tabs.some(tab => tab.query === searchQuery)) {
-        const newTabs = [...tabs, { id: newTabId, query: searchQuery }];
+        const newTabs = [...tabs, { id: newTabId, query: searchQuery, showChart: false }];
         setTabs(newTabs);
         setActiveTab(newTabId);
         sessionStorage.setItem('searchTabs', JSON.stringify(newTabs));
@@ -52,12 +52,22 @@ const SearchResults = () => {
     navigate('/');
   };
 
-  const SearchResultContent = ({ query }: { query: string }) => (
+  const handleStepComplete = (tabId: string) => {
+    setTabs(prevTabs => 
+      prevTabs.map(tab => 
+        tab.id === tabId 
+          ? { ...tab, showChart: true }
+          : tab
+      )
+    );
+  };
+
+  const SearchResultContent = ({ query, tabId, showChart }: { query: string; tabId: string; showChart?: boolean }) => (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
         <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
           <h2 className="text-xl font-semibold mb-4">Analysis Progress</h2>
-          <StepFlow onStep2Complete={() => setShowChart(true)} />
+          <StepFlow onStep2Complete={() => handleStepComplete(tabId)} />
         </div>
 
         {showChart && (
@@ -120,7 +130,7 @@ const SearchResults = () => {
 
           {tabs.map((tab) => (
             <TabsContent key={tab.id} value={tab.id}>
-              <SearchResultContent query={tab.query} />
+              <SearchResultContent query={tab.query} tabId={tab.id} showChart={tab.showChart} />
             </TabsContent>
           ))}
         </Tabs>
