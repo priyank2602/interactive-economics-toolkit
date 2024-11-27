@@ -45,6 +45,7 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
   const [progress2, setProgress2] = useState(0);
   const [progress3, setProgress3] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [step2Completed, setStep2Completed] = useState(false);
 
   useEffect(() => {
     const interval1 = setInterval(() => {
@@ -62,12 +63,13 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
   }, []);
 
   useEffect(() => {
-    if (currentStep === 2) {
+    if (currentStep === 2 && !step2Completed) {
       const interval2 = setInterval(() => {
         setProgress2((prev) => {
           if (prev >= 100) {
             clearInterval(interval2);
             setCurrentStep(3);
+            setStep2Completed(true);
             onStep2Complete?.();
             return 100;
           }
@@ -77,7 +79,7 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
 
       return () => clearInterval(interval2);
     }
-  }, [currentStep, onStep2Complete]);
+  }, [currentStep, onStep2Complete, step2Completed]);
 
   useEffect(() => {
     if (currentStep === 3) {
