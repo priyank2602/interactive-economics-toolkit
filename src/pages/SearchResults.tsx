@@ -1,21 +1,14 @@
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { StepFlow } from "@/components/StepFlow";
 
 const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
-
-  // Mock data for the chart
-  const stockData = Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toLocaleDateString(),
-    price: Math.random() * 100 + 150
-  }));
 
   // Mock market events
   const marketEvents = [
@@ -32,7 +25,7 @@ const SearchResults = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-black">
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
@@ -41,7 +34,7 @@ const SearchResults = () => {
             variant="ghost"
             size="icon"
             onClick={() => navigate('/')}
-            className="hover:bg-gray-100"
+            className="hover:bg-gray-100 dark:hover:bg-gray-900"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
@@ -49,32 +42,16 @@ const SearchResults = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h2 className="text-xl font-semibold mb-4">30 Day Stock Performance</h2>
-            <div className="h-[400px]">
-              <ChartContainer
-                config={{
-                  line: {
-                    color: "#9b87f5"
-                  }
-                }}
-              >
-                <LineChart data={stockData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip content={<ChartTooltip />} />
-                  <Line type="monotone" dataKey="price" stroke="var(--color-line)" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ChartContainer>
-            </div>
+          <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
+            <h2 className="text-xl font-semibold mb-4">Analysis Progress</h2>
+            <StepFlow />
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border">
+          <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
             <h2 className="text-xl font-semibold mb-4">Market Events</h2>
             <div className="space-y-4">
               {marketEvents.map((event, index) => (
-                <div key={index} className="border-b pb-4 last:border-b-0">
+                <div key={index} className="border-b pb-4 last:border-b-0 dark:border-gray-800">
                   <p className="text-sm text-secondary">{event.date}</p>
                   <p className="font-medium">{event.event}</p>
                 </div>
@@ -83,18 +60,18 @@ const SearchResults = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-sm border">
+        <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-xl font-semibold mb-6">Next Best Actions</h2>
             <div className="grid grid-cols-1 gap-4 mb-8">
               {nextBestActions.map((action, index) => (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div key={index} className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
                   <p className="text-sm font-medium">{action}</p>
                 </div>
               ))}
             </div>
             
-            <div className="pt-4 border-t">
+            <div className="pt-4 border-t dark:border-gray-800">
               <SearchBar />
             </div>
           </div>
