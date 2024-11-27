@@ -65,22 +65,22 @@ const SearchResults = () => {
   const SearchResultContent = ({ query, tabId, showChart }: { query: string; tabId: string; showChart?: boolean }) => (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        <div className="bg-card border-border p-6 rounded-lg shadow-sm border">
-          <h2 className="text-xl font-semibold mb-4 text-foreground">Analysis Progress</h2>
+        <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
+          <h2 className="text-xl font-semibold mb-4 text-white">Analysis Progress</h2>
           <StepFlow onStep2Complete={() => handleStepComplete(tabId)} />
         </div>
 
         {showChart && (
-          <div className="bg-card border-border p-6 rounded-lg shadow-sm border">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">Stock Price Trend</h2>
+          <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
+            <h2 className="text-xl font-semibold mb-4 text-white">Stock Price Trend</h2>
             <StockPriceChart />
           </div>
         )}
       </div>
 
-      <div className="bg-card border-border p-6 rounded-lg shadow-sm border">
+      <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
         <div className="max-w-3xl mx-auto">
-          <div className="pt-4 border-t border-border">
+          <div className="pt-4 border-t border-[#333333]">
             <SearchResultsBar />
           </div>
         </div>
@@ -89,7 +89,7 @@ const SearchResults = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-black text-white">
       <Header />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
@@ -98,7 +98,7 @@ const SearchResults = () => {
             variant="ghost"
             size="icon"
             onClick={() => navigate('/')}
-            className="hover:bg-accent"
+            className="hover:bg-[#333333] text-white"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
@@ -107,12 +107,12 @@ const SearchResults = () => {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex items-center gap-2 mb-6">
-            <TabsList className="h-10 flex-grow bg-card">
+            <TabsList className="h-10 flex-grow bg-[#141414] border border-[#333333]">
               {tabs.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  className="px-4 py-2 text-white data-[state=active]:bg-[#333333]"
                 >
                   {tab.query}
                 </TabsTrigger>
@@ -122,7 +122,7 @@ const SearchResults = () => {
               variant="outline"
               size="icon"
               onClick={handleAddTab}
-              className="h-10 w-10 flex-shrink-0"
+              className="h-10 w-10 flex-shrink-0 border-[#333333] text-white hover:bg-[#333333]"
             >
               <Plus className="h-4 w-4" />
             </Button>

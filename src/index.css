@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --text-primary: #0f172a;
-  --text-secondary: rgba(15, 23, 42, 0.65);
-  --border-color: #e2e8f0;
+  --background: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --border-color: #333333;
 }
 
 body {
@@ -23,12 +23,12 @@ body {
 }
 
 .ant-card {
-  background: #ffffff;
+  background: #141414;
   border-color: var(--border-color);
 }
 
 .ant-input {
-  background: #ffffff;
+  background: #141414;
   border-color: var(--border-color);
   color: var(--text-primary);
 }
