@@ -1,5 +1,8 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRightOutlined } from '@ant-design/icons';
+import { Card, Typography } from 'antd';
 import { Link } from "react-router-dom";
+
+const { Title, Paragraph } = Typography;
 
 interface HighlightCardProps {
   title: string;
@@ -11,14 +14,23 @@ interface HighlightCardProps {
 export const HighlightCard = ({ title, description, link, className = "" }: HighlightCardProps) => {
   return (
     <Link to={link} className={`block ${className}`}>
-      <div className="material-card hover:translate-y-[-2px]">
-        <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">{title}</h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{description}</p>
-        <div className="flex items-center text-primary">
+      <Card 
+        hoverable
+        style={{ 
+          background: '#141414',
+          borderColor: '#333333',
+        }}
+        className="h-full transition-all duration-300 hover:translate-y-[-2px]"
+      >
+        <Title level={4} style={{ color: '#fff', marginBottom: '16px' }}>{title}</Title>
+        <Paragraph style={{ color: 'rgba(255, 255, 255, 0.65)', marginBottom: '24px' }}>
+          {description}
+        </Paragraph>
+        <div className="flex items-center text-blue-400">
           <span className="mr-2 font-medium">Learn more</span>
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRightOutlined />
         </div>
-      </div>
+      </Card>
     </Link>
   );
 };
