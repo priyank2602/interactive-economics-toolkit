@@ -17,19 +17,35 @@ const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
-  const [tabs, setTabs] = useState<Tab[]>([]);
-  const [activeTab, setActiveTab] = useState<string>("");
+  const [tabs, setTabs] = useState<Tab[]>(() => {
+    const savedTabs = sessionStorage.getItem('searchTabs');
+    return savedTabs ? JSON.parse(savedTabs) : [];
+  });
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    const savedActiveTab = sessionStorage.getItem('activeSearchTab');
+    return savedActiveTab || "";
+  });
 
   useEffect(() => {
     if (searchQuery) {
       const newTabId = `tab-${Date.now()}`;
-      // Only add new tab if query doesn't exist in current tabs
       if (!tabs.some(tab => tab.query === searchQuery)) {
-        setTabs(prev => [...prev, { id: newTabId, query: searchQuery }]);
+        const newTabs = [...tabs, { id: newTabId, query: searchQuery }];
+        setTabs(newTabs);
         setActiveTab(newTabId);
+        sessionStorage.setItem('searchTabs', JSON.stringify(newTabs));
+        sessionStorage.setItem('activeSearchTab', newTabId);
       }
     }
   }, [searchQuery]);
+
+  useEffect(() => {
+    sessionStorage.setItem('searchTabs', JSON.stringify(tabs));
+  }, [tabs]);
+
+  useEffect(() => {
+    sessionStorage.setItem('activeSearchTab', activeTab);
+  }, [activeTab]);
 
   const handleAddTab = () => {
     navigate('/');
@@ -78,7 +94,7 @@ const SearchResults = () => {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex items-center gap-2 mb-6">
-            <TabsList className="h-10">
+            <TabsList className="h-10 flex-grow">
               {tabs.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
@@ -93,7 +109,7 @@ const SearchResults = () => {
               variant="outline"
               size="icon"
               onClick={handleAddTab}
-              className="h-10 w-10"
+              className="h-10 w-10 flex-shrink-0"
             >
               <Plus className="h-4 w-4" />
             </Button>
