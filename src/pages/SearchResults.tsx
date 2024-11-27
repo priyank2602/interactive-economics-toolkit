@@ -4,14 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Plus } from "lucide-react";
 import { StepFlow } from "@/components/StepFlow";
-import { StockPriceChart } from "@/components/StockPriceChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from "react";
 
 interface Tab {
   id: string;
   query: string;
-  showChart?: boolean;
 }
 
 const SearchResults = () => {
@@ -31,7 +29,7 @@ const SearchResults = () => {
     if (searchQuery) {
       const newTabId = `tab-${Date.now()}`;
       if (!tabs.some(tab => tab.query === searchQuery)) {
-        const newTabs = [...tabs, { id: newTabId, query: searchQuery, showChart: false }];
+        const newTabs = [...tabs, { id: newTabId, query: searchQuery }];
         setTabs(newTabs);
         setActiveTab(newTabId);
         sessionStorage.setItem('searchTabs', JSON.stringify(newTabs));
@@ -52,30 +50,11 @@ const SearchResults = () => {
     navigate('/');
   };
 
-  const handleStepComplete = (tabId: string) => {
-    setTabs(prevTabs => 
-      prevTabs.map(tab => 
-        tab.id === tabId 
-          ? { ...tab, showChart: true }
-          : tab
-      )
-    );
-  };
-
-  const SearchResultContent = ({ query, tabId, showChart }: { query: string; tabId: string; showChart?: boolean }) => (
-    <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
-          <h2 className="text-xl font-semibold mb-4 text-white">Analysis Progress</h2>
-          <StepFlow onStep2Complete={() => handleStepComplete(tabId)} />
-        </div>
-
-        {showChart && (
-          <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
-            <h2 className="text-xl font-semibold mb-4 text-white">Stock Price Trend</h2>
-            <StockPriceChart />
-          </div>
-        )}
+  const SearchResultContent = ({ query }: { query: string }) => (
+    <div className="space-y-8">
+      <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
+        <h2 className="text-xl font-semibold mb-4 text-white">Analysis Progress</h2>
+        <StepFlow onStep2Complete={() => {}} />
       </div>
 
       <div className="bg-[#141414] border-[#333333] p-6 rounded-lg shadow-sm border">
@@ -85,7 +64,7 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 
   return (
@@ -107,12 +86,12 @@ const SearchResults = () => {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex items-center gap-2 mb-6">
-            <TabsList className="h-10 flex-grow bg-[#141414] border border-[#333333]">
+            <TabsList className="h-10 bg-[#141414] border border-[#333333] p-1 flex-grow">
               {tabs.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="px-4 py-2 text-white data-[state=active]:bg-[#333333]"
+                  className="px-4 py-2 text-white data-[state=active]:bg-[#333333] hover:bg-[#252525] transition-colors"
                 >
                   {tab.query}
                 </TabsTrigger>
@@ -122,15 +101,15 @@ const SearchResults = () => {
               variant="outline"
               size="icon"
               onClick={handleAddTab}
-              className="h-10 w-10 flex-shrink-0 border-[#333333] text-white hover:bg-[#333333]"
+              className="h-10 w-10 border-[#333333] text-white hover:bg-[#333333] flex items-center justify-center"
             >
               <Plus className="h-4 w-4" />
             </Button>
           </div>
 
           {tabs.map((tab) => (
-            <TabsContent key={tab.id} value={tab.id}>
-              <SearchResultContent query={tab.query} tabId={tab.id} showChart={tab.showChart} />
+            <TabsContent key={tab.id} value={tab.id} className="mt-6">
+              <SearchResultContent query={tab.query} />
             </TabsContent>
           ))}
         </Tabs>
