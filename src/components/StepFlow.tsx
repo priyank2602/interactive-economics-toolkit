@@ -68,7 +68,6 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
         setProgress2((prev) => {
           if (prev >= 100) {
             clearInterval(interval2);
-            setCurrentStep(3);
             setStep2Completed(true);
             onStep2Complete?.();
             return 100;
@@ -82,7 +81,8 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
   }, [currentStep, onStep2Complete, step2Completed]);
 
   useEffect(() => {
-    if (currentStep === 3) {
+    if (step2Completed && !isComplete) {
+      setCurrentStep(3);
       const interval3 = setInterval(() => {
         setProgress3((prev) => {
           if (prev >= 100) {
@@ -96,7 +96,7 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
 
       return () => clearInterval(interval3);
     }
-  }, [currentStep]);
+  }, [step2Completed, isComplete]);
 
   return (
     <div className="space-y-4">
@@ -128,13 +128,13 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
       </Accordion>
       
       {isComplete && (
-        <div className="mt-8 p-6 bg-black animate-fade-in">
-          <h3 className="text-xl font-semibold mb-2">Insights</h3>
+        <div className="mt-8 p-6 bg-[#141414] border border-[#333333] rounded-lg animate-fade-in">
+          <h3 className="text-xl font-semibold mb-2 text-white">Insights</h3>
           <p className="text-secondary text-sm mb-4">
             Data collection completed → Market trends analyzed → Actionable insights generated
           </p>
           <p className="text-secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Based on the analyzed market trends and financial indicators, we observe significant volatility in the stock price over the past month. The price movements suggest a general upward trend with notable resistance levels. Consider monitoring key support and resistance zones for potential trading opportunities.
           </p>
         </div>
       )}
