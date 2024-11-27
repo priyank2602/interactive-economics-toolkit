@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { SearchBar } from "@/components/SearchBar";
+import { SearchResultsBar } from "@/components/SearchResultsBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -50,16 +50,20 @@ const SearchResults = () => {
         <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-xl font-semibold mb-6">Next Best Actions</h2>
-            <div className="grid grid-cols-1 gap-4 mb-8">
+            <div className="flex flex-wrap gap-4 mb-8">
               {nextBestActions.map((action, index) => (
-                <div key={index} className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-                  <p className="text-sm font-medium">{action}</p>
-                </div>
+                <Button
+                  key={index}
+                  variant="outline"
+                  className="flex-1 min-w-[200px] h-auto py-3 text-sm"
+                >
+                  {action}
+                </Button>
               ))}
             </div>
             
             <div className="pt-4 border-t dark:border-gray-800">
-              <SearchBar />
+              <SearchResultsBar />
             </div>
           </div>
         </div>
