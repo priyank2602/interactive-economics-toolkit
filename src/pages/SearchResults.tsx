@@ -4,18 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { StepFlow } from "@/components/StepFlow";
+import { StockPriceChart } from "@/components/StockPriceChart";
 
 const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('q');
-
-  // Mock market events
-  const marketEvents = [
-    { date: "2024-02-01", event: "Quarterly Earnings Report Released" },
-    { date: "2024-01-25", event: "New Product Launch Announcement" },
-    { date: "2024-01-15", event: "Strategic Partnership Agreement" },
-  ];
 
   // Mock next best actions
   const nextBestActions = [
@@ -48,15 +42,8 @@ const SearchResults = () => {
           </div>
 
           <div className="bg-white dark:bg-black p-6 rounded-lg shadow-sm border">
-            <h2 className="text-xl font-semibold mb-4">Market Events</h2>
-            <div className="space-y-4">
-              {marketEvents.map((event, index) => (
-                <div key={index} className="border-b pb-4 last:border-b-0 dark:border-gray-800">
-                  <p className="text-sm text-secondary">{event.date}</p>
-                  <p className="font-medium">{event.event}</p>
-                </div>
-              ))}
-            </div>
+            <h2 className="text-xl font-semibold mb-4">Stock Price Trend</h2>
+            <StockPriceChart />
           </div>
         </div>
 
