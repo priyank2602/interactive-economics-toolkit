@@ -35,6 +35,10 @@ export default {
           DEFAULT: "#ffffff",
           foreground: "#0f172a",
         },
+        accent: {
+          DEFAULT: "#f3f4f6",
+          foreground: "#0f172a",
+        }
       },
       borderRadius: {
         lg: "1rem",
