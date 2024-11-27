@@ -96,44 +96,33 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
     }
   }, [currentStep]);
 
-  const getCurrentStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <Step
-            step={1}
-            title="Data Collection"
-            description="Gathering relevant market data and financial indicators"
-            progress={progress1}
-          />
-        );
-      case 2:
-        return (
-          <Step
-            step={2}
-            title="Analysis"
-            description="Processing and analyzing market trends"
-            progress={progress2}
-          />
-        );
-      case 3:
-        return (
-          <Step
-            step={3}
-            title="Recommendations"
-            description="Generating actionable insights"
-            progress={progress3}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="space-y-4">
       <Accordion type="single" collapsible className="space-y-4">
-        {getCurrentStep()}
+        <Step
+          step={currentStep}
+          title={
+            currentStep === 1
+              ? "Data Collection"
+              : currentStep === 2
+              ? "Analysis"
+              : "Recommendations"
+          }
+          description={
+            currentStep === 1
+              ? "Gathering relevant market data and financial indicators"
+              : currentStep === 2
+              ? "Processing and analyzing market trends"
+              : "Generating actionable insights"
+          }
+          progress={
+            currentStep === 1
+              ? progress1
+              : currentStep === 2
+              ? progress2
+              : progress3
+          }
+        />
       </Accordion>
       
       {isComplete && (
