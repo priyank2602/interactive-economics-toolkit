@@ -97,23 +97,21 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) =>
                   </div>
                 </div>
               )}
-              {messages.length === 1 && (
-                <div className="space-y-2">
-                  <div className="text-sm text-gray-400">Suggested Queries:</div>
-                  <button 
-                    onClick={() => handleSuggestedQuery("Summarize Market Events")}
-                    className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
-                  >
-                    Summarize Market Events
-                  </button>
-                  <button 
-                    onClick={() => handleSuggestedQuery("Help me with divisional results")}
-                    className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
-                  >
-                    Help me with divisional results
-                  </button>
-                </div>
-              )}
+              <div className="space-y-2">
+                <div className="text-sm text-gray-400">Suggested Queries:</div>
+                <button 
+                  onClick={() => handleSuggestedQuery("Summarize Market Events")}
+                  className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
+                >
+                  Summarize Market Events
+                </button>
+                <button 
+                  onClick={() => handleSuggestedQuery("Help me with divisional results")}
+                  className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
+                >
+                  Help me with divisional results
+                </button>
+              </div>
             </div>
             <div className="mt-4 flex items-center gap-2">
               <input
