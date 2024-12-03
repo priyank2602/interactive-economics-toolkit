@@ -22,12 +22,18 @@ const JPMCHighlights = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleShowDividendAnalysis = () => {
+  const handleShowDividendAnalysis = async () => {
     setIsDividendLoading(true);
-    setTimeout(() => {
-      setShowDividendAnalysis(true);
-      setIsDividendLoading(false);
-    }, 3000);
+    setShowDividendAnalysis(false);
+    
+    // Return a promise that resolves after the loading is complete
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        setShowDividendAnalysis(true);
+        setIsDividendLoading(false);
+        resolve();
+      }, 3000);
+    });
   };
 
   return (

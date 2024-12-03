@@ -11,7 +11,7 @@ type Message = {
 
 interface CoPilotWidgetProps {
   onUpdateStockPriceDays?: (days: number) => void;
-  onShowDividendAnalysis?: () => void;
+  onShowDividendAnalysis?: () => Promise<void>;
 }
 
 export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }: CoPilotWidgetProps) => {
@@ -42,12 +42,15 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }
       await new Promise(resolve => setTimeout(resolve, 1500));
       setMessages(prev => [...prev, { type: 'bot', content: generateMarketSummary() }]);
     } else if (text.toLowerCase().includes('analyze') && text.toLowerCase().includes('dividend')) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      onShowDividendAnalysis?.();
-      setMessages(prev => [...prev, { 
-        type: 'bot', 
-        content: generateDividendAnalysis()
-      }]);
+      try {
+        await onShowDividendAnalysis?.();
+        setMessages(prev => [...prev, { 
+          type: 'bot', 
+          content: generateDividendAnalysis()
+        }]);
+      } catch (error) {
+        console.error('Error showing dividend analysis:', error);
+      }
     } else {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setMessages(prev => [...prev, { 
