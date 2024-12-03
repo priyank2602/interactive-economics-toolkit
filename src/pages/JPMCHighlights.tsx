@@ -18,19 +18,22 @@ const JPMCHighlights = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Header />
       
       <main className="container mx-auto px-4 pt-32 pb-16">
-        <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8">
+        <Link 
+          to="/" 
+          className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8"
+        >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
         
         <div className="max-w-4xl mx-auto space-y-8">
           <section className="space-y-6">
-            <div className="p-6 bg-card rounded-lg border shadow-sm">
-              <h2 className="text-xl font-semibold mb-4">JPMC Stock Price (Last 30 Days)</h2>
+            <div className="p-6 bg-[#141414] rounded-lg border border-[#333333] shadow-sm">
+              <h2 className="text-xl font-semibold mb-4 text-white">JPMC Stock Price (Last 30 Days)</h2>
               {!showChart ? (
                 <div className="flex items-center justify-center h-[300px]">
                   <div className="flex flex-col items-center gap-2">
