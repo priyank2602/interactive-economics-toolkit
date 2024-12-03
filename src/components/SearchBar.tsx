@@ -10,7 +10,7 @@ export const SearchBar = () => {
     "Build Story of the bank using CEO's opening statements",
     "Fluctuations in CIB (Corporate & Investment Banking) or IB (Investment Banking) performance metrics?",
     "Revenue composition changed compared to the last few quarters?",
-    "Last 30 days stock price for Tesla"
+    "What's happening with Barclays"
   ]);
 
   const handleSearch = (value: string) => {
