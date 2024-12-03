@@ -2,11 +2,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { format, subDays } from 'date-fns';
 
 // Generate dummy data for JPMC stock price
-const generateDummyData = () => {
+const generateDummyData = (days: number) => {
   const data = [];
   const basePrice = 175; // JPMC's approximate stock price
   
-  for (let i = 30; i >= 0; i--) {
+  for (let i = days; i >= 0; i--) {
     const date = subDays(new Date(), i);
     const randomVariation = Math.random() * 10 - 5; // Random value between -5 and 5
     data.push({
@@ -18,9 +18,13 @@ const generateDummyData = () => {
   return data;
 };
 
-const data = generateDummyData();
+interface StockPriceChartProps {
+  days?: number;
+}
 
-export const StockPriceChart = () => {
+export const StockPriceChart = ({ days = 30 }: StockPriceChartProps) => {
+  const data = generateDummyData(days);
+
   return (
     <div className="w-full h-[300px]">
       <ResponsiveContainer width="100%" height="100%">

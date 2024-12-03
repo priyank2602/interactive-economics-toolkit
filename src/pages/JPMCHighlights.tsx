@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 
 const JPMCHighlights = () => {
   const [showChart, setShowChart] = useState(false);
+  const [stockPriceDays, setStockPriceDays] = useState(30);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,16 +35,16 @@ const JPMCHighlights = () => {
         <div className="max-w-4xl mx-auto space-y-8">
           <section className="space-y-6">
             <div className="p-6 bg-[#141414] rounded-lg border border-[#333333] shadow-sm">
-              <h2 className="text-xl font-semibold mb-4 text-white">JPMC Stock Price (Last 30 Days)</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">JPMC Stock Price (Last {stockPriceDays} Days)</h2>
               {!showChart ? (
                 <div className="flex items-center justify-center h-[300px]">
                   <div className="flex flex-col items-center gap-2">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                    <p className="text-sm text-muted-foreground">Connecting to market data to show last 30 days stock price</p>
+                    <p className="text-sm text-muted-foreground">Connecting to market data to show last {stockPriceDays} days stock price</p>
                   </div>
                 </div>
               ) : (
-                <StockPriceChart />
+                <StockPriceChart days={stockPriceDays} />
               )}
             </div>
             
@@ -56,7 +57,7 @@ const JPMCHighlights = () => {
         </div>
       </main>
 
-      <CoPilotWidget />
+      <CoPilotWidget onUpdateStockPriceDays={setStockPriceDays} />
     </div>
   );
 };

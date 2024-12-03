@@ -6,7 +6,11 @@ type Message = {
   content: string;
 };
 
-export const CoPilotWidget = () => {
+interface CoPilotWidgetProps {
+  onUpdateStockPriceDays?: (days: number) => void;
+}
+
+export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -35,11 +39,25 @@ export const CoPilotWidget = () => {
     // Show typing indicator
     setIsTyping(true);
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Check for stock price update request
+    if (text.toLowerCase().includes('update stock price') && text.toLowerCase().includes('60 days')) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      onUpdateStockPriceDays?.(60);
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        content: "I've updated the stock price chart to show data for the last 60 days." 
+      }]);
+    } else if (text.toLowerCase().includes('summarize market events')) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setMessages(prev => [...prev, { type: 'bot', content: generateMarketSummary() }]);
+    } else {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        content: "I'll help you with that request. Please note that some features are still under development." 
+      }]);
+    }
     
-    // Add bot response
-    setMessages(prev => [...prev, { type: 'bot', content: generateMarketSummary() }]);
     setIsTyping(false);
   };
 
