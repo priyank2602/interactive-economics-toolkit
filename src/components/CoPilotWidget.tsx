@@ -22,6 +22,15 @@ export const CoPilotWidget = () => {
               <div className="bg-[#1e1e1e] rounded p-3 text-sm text-white">
                 Hello! I'm your iEAT Co Pilot. How can I assist you with JPMC insights today?
               </div>
+              <div className="space-y-2">
+                <div className="text-sm text-gray-400">Suggested Queries:</div>
+                <button className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors">
+                  Summarize Market Events
+                </button>
+                <button className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors">
+                  Help me with divisional results
+                </button>
+              </div>
             </div>
             <div className="mt-4 flex items-center gap-2">
               <input
