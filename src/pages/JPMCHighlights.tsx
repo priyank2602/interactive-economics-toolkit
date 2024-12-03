@@ -13,6 +13,7 @@ const JPMCHighlights = () => {
   const [stockPriceDays, setStockPriceDays] = useState(30);
   const [showDividendAnalysis, setShowDividendAnalysis] = useState(false);
   const [isDividendLoading, setIsDividendLoading] = useState(false);
+  const [isStockChartLoading, setIsStockChartLoading] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,11 +23,17 @@ const JPMCHighlights = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleUpdateStockPriceDays = async (days: number) => {
+    setIsStockChartLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate loading
+    setStockPriceDays(days);
+    setIsStockChartLoading(false);
+  };
+
   const handleShowDividendAnalysis = async () => {
     setIsDividendLoading(true);
     setShowDividendAnalysis(false);
     
-    // Return a promise that resolves after the loading is complete
     return new Promise<void>((resolve) => {
       setTimeout(() => {
         setShowDividendAnalysis(true);
@@ -57,11 +64,11 @@ const JPMCHighlights = () => {
                 <div className="flex items-center justify-center h-[300px]">
                   <div className="flex flex-col items-center gap-2">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                    <p className="text-sm text-[rgba(255,255,255,0.65)]">Connecting to market data to show last {stockPriceDays} days stock price</p>
+                    <p className="text-sm text-[rgba(255,255,255,0.65)]">Connecting to market data...</p>
                   </div>
                 </div>
               ) : (
-                <StockPriceChart days={stockPriceDays} />
+                <StockPriceChart days={stockPriceDays} isLoading={isStockChartLoading} />
               )}
             </div>
             
@@ -92,7 +99,7 @@ const JPMCHighlights = () => {
       </main>
 
       <CoPilotWidget 
-        onUpdateStockPriceDays={setStockPriceDays}
+        onUpdateStockPriceDays={handleUpdateStockPriceDays}
         onShowDividendAnalysis={handleShowDividendAnalysis}
       />
     </div>

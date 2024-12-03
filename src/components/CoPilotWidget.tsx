@@ -25,15 +25,18 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [isLoadingChart, setIsLoadingChart] = useState(false);
 
   const handleSendMessage = async (text: string) => {
     setMessages(prev => [...prev, { type: 'user', content: text }]);
     setInputValue('');
     setIsTyping(true);
     
-    if (text.toLowerCase().includes('update stock price') && text.toLowerCase().includes('60 days')) {
+    if (text.toLowerCase().includes('last 60 days stock price')) {
+      setIsLoadingChart(true);
       await new Promise(resolve => setTimeout(resolve, 1500));
-      onUpdateStockPriceDays?.(60);
+      await onUpdateStockPriceDays?.(60);
+      setIsLoadingChart(false);
       setMessages(prev => [...prev, { 
         type: 'bot', 
         content: "I've updated the stock price chart to show data for the last 60 days." 
