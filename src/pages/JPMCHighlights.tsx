@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { StockPriceChart } from "@/components/StockPriceChart";
 import { MarketEvents } from "@/components/MarketEvents";
 import { JPMCInsights } from "@/components/JPMCInsights";
+import { CoPilotWidget } from "@/components/CoPilotWidget";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -54,6 +55,8 @@ const JPMCHighlights = () => {
           </section>
         </div>
       </main>
+
+      <CoPilotWidget />
     </div>
   );
 };
