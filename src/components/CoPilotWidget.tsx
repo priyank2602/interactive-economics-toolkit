@@ -12,6 +12,7 @@ interface CoPilotWidgetProps {
 
 export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDocked, setIsDocked] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       type: 'bot',
@@ -32,14 +33,10 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) =>
   };
 
   const handleSendMessage = async (text: string) => {
-    // Add user message
     setMessages(prev => [...prev, { type: 'user', content: text }]);
     setInputValue('');
-    
-    // Show typing indicator
     setIsTyping(true);
     
-    // Check for stock price update request
     if (text.toLowerCase().includes('update stock price') && text.toLowerCase().includes('60 days')) {
       await new Promise(resolve => setTimeout(resolve, 1500));
       onUpdateStockPriceDays?.(60);
@@ -65,20 +62,45 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) =>
     handleSendMessage(query);
   };
 
+  const toggleDock = () => {
+    setIsDocked(!isDocked);
+  };
+
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className={`fixed z-50 transition-all duration-300 ease-in-out ${
+      isOpen 
+        ? isDocked 
+          ? 'top-0 right-0 bottom-0' 
+          : 'bottom-4 right-4'
+        : 'bottom-4 right-4'
+    }`}>
       {isOpen ? (
-        <div className="bg-[#141414] border border-[#333333] rounded-lg shadow-lg w-[320px] h-[400px] animate-scale-in">
+        <div 
+          className={`bg-[#141414] border border-[#333333] rounded-lg shadow-lg transition-all duration-300 ${
+            isDocked 
+              ? 'w-[400px] h-full rounded-none border-r-0 border-t-0 border-b-0' 
+              : 'w-[320px] h-[400px]'
+          } animate-scale-in`}
+        >
           <div className="p-4 border-b border-[#333333] flex items-center justify-between">
             <h3 className="text-lg font-semibold text-white">iEAT Co Pilot</h3>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleDock}
+                className="text-gray-400 hover:text-white transition-colors p-1"
+                title={isDocked ? "Undock" : "Dock to side"}
+              >
+                <div className={`w-4 h-4 border-2 border-current rounded-sm transition-transform ${isDocked ? 'rotate-180' : ''}`} />
+              </button>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
           </div>
-          <div className="p-4 h-[calc(400px-64px)] flex flex-col">
+          <div className="p-4 h-[calc(100%-64px)] flex flex-col">
             <div className="flex-1 overflow-y-auto space-y-4">
               {messages.map((message, index) => (
                 <div
