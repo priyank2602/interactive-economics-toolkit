@@ -3,6 +3,7 @@ import { StockPriceChart } from "@/components/StockPriceChart";
 import { MarketEvents } from "@/components/MarketEvents";
 import { JPMCInsights } from "@/components/JPMCInsights";
 import { CoPilotWidget } from "@/components/CoPilotWidget";
+import { DividendChart } from "@/components/DividendChart";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -10,6 +11,7 @@ import { useState, useEffect } from "react";
 const JPMCHighlights = () => {
   const [showChart, setShowChart] = useState(false);
   const [stockPriceDays, setStockPriceDays] = useState(30);
+  const [showDividendAnalysis, setShowDividendAnalysis] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,6 +50,12 @@ const JPMCHighlights = () => {
               )}
             </div>
             
+            {showDividendAnalysis && (
+              <div className="p-6 bg-[#141414] rounded-lg border border-[#333333] shadow-sm">
+                <DividendChart />
+              </div>
+            )}
+            
             <MarketEvents />
           </section>
           
@@ -57,7 +65,10 @@ const JPMCHighlights = () => {
         </div>
       </main>
 
-      <CoPilotWidget onUpdateStockPriceDays={setStockPriceDays} />
+      <CoPilotWidget 
+        onUpdateStockPriceDays={setStockPriceDays}
+        onShowDividendAnalysis={() => setShowDividendAnalysis(true)}
+      />
     </div>
   );
 };

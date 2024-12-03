@@ -8,9 +8,10 @@ type Message = {
 
 interface CoPilotWidgetProps {
   onUpdateStockPriceDays?: (days: number) => void;
+  onShowDividendAnalysis?: () => void;
 }
 
-export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) => {
+export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }: CoPilotWidgetProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDocked, setIsDocked] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -32,6 +33,24 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) =>
     return summary;
   };
 
+  const generateDividendAnalysis = () => {
+    return `Here's an analysis of JPMorgan Chase & Co.'s (JPMC) dividend yield, payout consistency, and growth history as of December 3, 2024:
+
+Dividend Yield: JPMC's dividend yield is reported to be between 1.84% and 2%. This yield is relatively attractive for income-focused investors, especially in the financial sector.
+
+Payout Consistency: JPMC has a strong track record of consistent dividend payments, having increased its dividends for 14 consecutive years.
+
+Growth History: The dividend growth rate for JPMC has varied over different time periods:
+• Over the past 12 months: ~13.58%
+• Over the past 36 months: ~7.53%
+• Over the past 60 months: ~6.87%
+• Over the past 120 months: ~11.42%
+
+Payout Ratio: 25-27%, suggesting strong sustainability and room for future increases.
+
+Payment Frequency: Quarterly, with an annual dividend of $5.00 per share.`;
+  };
+
   const handleSendMessage = async (text: string) => {
     setMessages(prev => [...prev, { type: 'user', content: text }]);
     setInputValue('');
@@ -47,6 +66,13 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays }: CoPilotWidgetProps) =>
     } else if (text.toLowerCase().includes('summarize market events')) {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setMessages(prev => [...prev, { type: 'bot', content: generateMarketSummary() }]);
+    } else if (text.toLowerCase().includes('analyze') && text.toLowerCase().includes('dividend')) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      onShowDividendAnalysis?.();
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        content: generateDividendAnalysis()
+      }]);
     } else {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setMessages(prev => [...prev, { 
