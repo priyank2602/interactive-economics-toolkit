@@ -20,13 +20,13 @@ const JPMCHighlights = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#000000]">
       <Header />
       
       <main className="container mx-auto px-4 pt-32 pb-16">
         <Link 
           to="/" 
-          className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8"
+          className="inline-flex items-center text-[rgba(255,255,255,0.65)] hover:text-white mb-8"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
@@ -40,7 +40,7 @@ const JPMCHighlights = () => {
                 <div className="flex items-center justify-center h-[300px]">
                   <div className="flex flex-col items-center gap-2">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                    <p className="text-sm text-muted-foreground">Connecting to market data to show last {stockPriceDays} days stock price</p>
+                    <p className="text-sm text-[rgba(255,255,255,0.65)]">Connecting to market data to show last {stockPriceDays} days stock price</p>
                   </div>
                 </div>
               ) : (
