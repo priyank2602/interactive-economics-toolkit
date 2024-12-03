@@ -1,5 +1,8 @@
 import { MessageCircle, X } from "lucide-react";
 import { useState } from "react";
+import { ChatMessage } from "./chat/ChatMessage";
+import { SuggestedQueries } from "./chat/SuggestedQueries";
+import { generateMarketSummary, generateDividendAnalysis } from "@/utils/chatUtils";
 
 type Message = {
   type: 'user' | 'bot';
@@ -22,34 +25,6 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [inputValue, setInputValue] = useState('');
-
-  const generateMarketSummary = () => {
-    const summary = "Based on recent market events, JPMC has shown strong performance with positive momentum. Key highlights include:\n\n" +
-      "• New digital banking initiative announcement (Feb 15)\n" +
-      "• Strong quarterly earnings exceeding expectations (Feb 10)\n" +
-      "• Strategic tech partnership established (Feb 5)\n" +
-      "• Successful expansion into emerging markets (Jan 25)\n\n" +
-      "Overall market sentiment remains positive with these developments.";
-    return summary;
-  };
-
-  const generateDividendAnalysis = () => {
-    return `Here's an analysis of JPMorgan Chase & Co.'s (JPMC) dividend yield, payout consistency, and growth history as of December 3, 2024:
-
-Dividend Yield: JPMC's dividend yield is reported to be between 1.84% and 2%. This yield is relatively attractive for income-focused investors, especially in the financial sector.
-
-Payout Consistency: JPMC has a strong track record of consistent dividend payments, having increased its dividends for 14 consecutive years.
-
-Growth History: The dividend growth rate for JPMC has varied over different time periods:
-• Over the past 12 months: ~13.58%
-• Over the past 36 months: ~7.53%
-• Over the past 60 months: ~6.87%
-• Over the past 120 months: ~11.42%
-
-Payout Ratio: 25-27%, suggesting strong sustainability and room for future increases.
-
-Payment Frequency: Quarterly, with an annual dividend of $5.00 per share.`;
-  };
 
   const handleSendMessage = async (text: string) => {
     setMessages(prev => [...prev, { type: 'user', content: text }]);
@@ -82,10 +57,6 @@ Payment Frequency: Quarterly, with an annual dividend of $5.00 per share.`;
     }
     
     setIsTyping(false);
-  };
-
-  const handleSuggestedQuery = (query: string) => {
-    handleSendMessage(query);
   };
 
   const toggleDock = () => {
@@ -129,12 +100,7 @@ Payment Frequency: Quarterly, with an annual dividend of $5.00 per share.`;
           <div className="p-4 h-[calc(100%-64px)] flex flex-col">
             <div className="flex-1 overflow-y-auto space-y-4">
               {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`bg-[#1e1e1e] rounded p-3 text-sm text-white whitespace-pre-wrap`}
-                >
-                  {message.content}
-                </div>
+                <ChatMessage key={index} type={message.type} content={message.content} />
               ))}
               {isTyping && (
                 <div className="bg-[#1e1e1e] rounded p-3 text-sm text-white">
@@ -145,21 +111,7 @@ Payment Frequency: Quarterly, with an annual dividend of $5.00 per share.`;
                   </div>
                 </div>
               )}
-              <div className="space-y-2">
-                <div className="text-sm text-gray-400">Suggested Queries:</div>
-                <button 
-                  onClick={() => handleSuggestedQuery("Summarize Market Events")}
-                  className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
-                >
-                  Summarize Market Events
-                </button>
-                <button 
-                  onClick={() => handleSuggestedQuery("Help me with divisional results")}
-                  className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
-                >
-                  Help me with divisional results
-                </button>
-              </div>
+              <SuggestedQueries onQuerySelect={handleSendMessage} />
             </div>
             <div className="mt-4 flex items-center gap-2">
               <input

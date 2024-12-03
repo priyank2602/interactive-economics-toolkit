@@ -12,6 +12,7 @@ const JPMCHighlights = () => {
   const [showChart, setShowChart] = useState(false);
   const [stockPriceDays, setStockPriceDays] = useState(30);
   const [showDividendAnalysis, setShowDividendAnalysis] = useState(false);
+  const [isDividendLoading, setIsDividendLoading] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -20,6 +21,14 @@ const JPMCHighlights = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleShowDividendAnalysis = () => {
+    setIsDividendLoading(true);
+    setTimeout(() => {
+      setShowDividendAnalysis(true);
+      setIsDividendLoading(false);
+    }, 3000);
+  };
 
   return (
     <div className="min-h-screen bg-[#000000]">
@@ -50,7 +59,18 @@ const JPMCHighlights = () => {
               )}
             </div>
             
-            {showDividendAnalysis && (
+            {isDividendLoading && (
+              <div className="p-6 bg-[#141414] rounded-lg border border-[#333333] shadow-sm">
+                <div className="flex items-center justify-center h-[300px]">
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    <p className="text-sm text-[rgba(255,255,255,0.65)]">Loading dividend analysis...</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {showDividendAnalysis && !isDividendLoading && (
               <div className="p-6 bg-[#141414] rounded-lg border border-[#333333] shadow-sm">
                 <DividendChart />
               </div>
@@ -67,7 +87,7 @@ const JPMCHighlights = () => {
 
       <CoPilotWidget 
         onUpdateStockPriceDays={setStockPriceDays}
-        onShowDividendAnalysis={() => setShowDividendAnalysis(true)}
+        onShowDividendAnalysis={handleShowDividendAnalysis}
       />
     </div>
   );
