@@ -41,6 +41,7 @@ export const StockPriceChart = ({ days = 30, isLoading = false }: StockPriceChar
     <div className="w-full h-[300px]">
       <VictoryChart
         height={300}
+        width={undefined}
         padding={{ top: 20, bottom: 40, left: 50, right: 30 }}
         containerComponent={
           <VictoryVoronoiContainer
