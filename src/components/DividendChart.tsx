@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryVoronoiContainer } from 'victory';
 
 const annualData = [
   { year: '2020', dividend: 3.60 },
@@ -48,36 +48,71 @@ export const DividendChart = () => {
       </div>
       
       <div className="h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
+        <VictoryChart
+          height={300}
+          width={undefined}
+          padding={{ top: 20, bottom: 40, left: 50, right: 30 }}
+          domainPadding={{ x: 25 }}
+          containerComponent={
+            <VictoryVoronoiContainer
+              labels={({ datum }) => 
+                `${showAnnual ? datum.year : datum.quarter}: $${datum.dividend}`
+              }
+              labelComponent={
+                <VictoryTooltip
+                  style={{ fill: '#0f172a' }}
+                  flyoutStyle={{
+                    stroke: '#e2e8f0',
+                    fill: 'white',
+                  }}
+                />
+              }
+            />
+          }
+        >
+          <VictoryAxis
+            tickFormat={(t) => t}
+            style={{
+              axis: { stroke: '#e2e8f0' },
+              ticks: { stroke: '#e2e8f0' },
+              tickLabels: { 
+                fill: 'rgba(255,255,255,0.65)', 
+                fontSize: 10,
+                angle: -45,
+                textAnchor: 'end'
+              }
+            }}
+            tickCount={8}
+          />
+          <VictoryAxis
+            dependentAxis
+            tickFormat={(t) => `$${t}`}
+            style={{
+              axis: { stroke: '#e2e8f0' },
+              ticks: { stroke: '#e2e8f0' },
+              tickLabels: { 
+                fill: 'rgba(255,255,255,0.65)', 
+                fontSize: 10 
+              }
+            }}
+          />
+          <VictoryBar
             data={showAnnual ? annualData : quarterlyData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-            <XAxis 
-              dataKey={showAnnual ? 'year' : 'quarter'} 
-              className="text-muted-foreground"
-            />
-            <YAxis 
-              className="text-muted-foreground"
-              domain={[0, 'auto']}
-            />
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: 'hsl(var(--background))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: '0.5rem'
-              }}
-              labelStyle={{ color: 'hsl(var(--muted-foreground))' }}
-              itemStyle={{ color: 'hsl(var(--foreground))' }}
-            />
-            <Bar 
-              dataKey="dividend" 
-              fill="hsl(var(--primary))"
-              radius={[4, 4, 0, 0]}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+            x={showAnnual ? "year" : "quarter"}
+            y="dividend"
+            style={{
+              data: { 
+                fill: '#9b87f5',
+                width: 25
+              }
+            }}
+            animate={{
+              duration: 500,
+              onLoad: { duration: 500 }
+            }}
+            cornerRadius={{ top: 4 }}
+          />
+        </VictoryChart>
       </div>
     </div>
   );
