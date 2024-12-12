@@ -62,8 +62,9 @@ export const StockPriceChart = ({ days = 30, isLoading = false }: StockPriceChar
           style={{
             axis: { stroke: '#e2e8f0' },
             ticks: { stroke: '#e2e8f0' },
-            tickLabels: { fill: 'rgba(255,255,255,0.65)', fontSize: 10 }
+            tickLabels: { fill: 'rgba(255,255,255,0.65)', fontSize: 10, angle: -45, textAnchor: 'end' }
           }}
+          tickCount={8}
         />
         <VictoryAxis
           dependentAxis
