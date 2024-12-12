@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip, VictoryVoronoiContainer } from 'victory';
 import { format, subDays } from 'date-fns';
 
 // Generate dummy data for JPMC stock price
@@ -10,8 +10,8 @@ const generateDummyData = (days: number) => {
     const date = subDays(new Date(), i);
     const randomVariation = Math.random() * 10 - 5; // Random value between -5 and 5
     data.push({
-      date: format(date, 'MMM dd'),
-      price: +(basePrice + randomVariation).toFixed(2)
+      x: format(date, 'MMM dd'),
+      y: +(basePrice + randomVariation).toFixed(2)
     });
   }
   
@@ -39,44 +39,52 @@ export const StockPriceChart = ({ days = 30, isLoading = false }: StockPriceChar
 
   return (
     <div className="w-full h-[300px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
+      <VictoryChart
+        height={300}
+        padding={{ top: 20, bottom: 40, left: 50, right: 30 }}
+        containerComponent={
+          <VictoryVoronoiContainer
+            labels={({ datum }) => `${datum.x}: $${datum.y}`}
+            labelComponent={
+              <VictoryTooltip
+                style={{ fill: '#0f172a' }}
+                flyoutStyle={{
+                  stroke: '#e2e8f0',
+                  fill: 'white',
+                }}
+              />
+            }
+          />
+        }
+      >
+        <VictoryAxis
+          tickFormat={(t) => t}
+          style={{
+            axis: { stroke: '#e2e8f0' },
+            ticks: { stroke: '#e2e8f0' },
+            tickLabels: { fill: 'rgba(255,255,255,0.65)', fontSize: 10 }
           }}
-        >
-          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-          <XAxis 
-            dataKey="date" 
-            className="text-muted-foreground"
-          />
-          <YAxis 
-            className="text-muted-foreground"
-            domain={['auto', 'auto']}
-          />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'hsl(var(--background))',
-              border: '1px solid hsl(var(--border))',
-              borderRadius: '0.5rem'
-            }}
-            labelStyle={{ color: 'hsl(var(--muted-foreground))' }}
-            itemStyle={{ color: 'hsl(var(--foreground))' }}
-          />
-          <Line
-            type="monotone"
-            dataKey="price"
-            stroke="hsl(var(--primary))"
-            strokeWidth={2}
-            dot={false}
-            activeDot={{ r: 4, fill: 'hsl(var(--primary))' }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+        />
+        <VictoryAxis
+          dependentAxis
+          tickFormat={(t) => `$${t}`}
+          style={{
+            axis: { stroke: '#e2e8f0' },
+            ticks: { stroke: '#e2e8f0' },
+            tickLabels: { fill: 'rgba(255,255,255,0.65)', fontSize: 10 }
+          }}
+        />
+        <VictoryLine
+          data={data}
+          style={{
+            data: { stroke: '#9b87f5', strokeWidth: 2 }
+          }}
+          animate={{
+            duration: 500,
+            onLoad: { duration: 500 }
+          }}
+        />
+      </VictoryChart>
     </div>
   );
 };
