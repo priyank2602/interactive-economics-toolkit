@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StockPriceChart } from "./StockPriceChart";
+import { Link } from "react-router-dom";
 
 interface InsightsDisplayProps {
   query: string | null;
@@ -24,14 +25,27 @@ export const InsightsDisplay = ({ query, insights, showChart }: InsightsDisplayP
       {showTiles ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {insights.tiles.map((tile: { title: string; content: string }, index: number) => (
-            <Card key={index} className="bg-[#141414] border-[#333333] text-white">
-              <CardHeader>
-                <CardTitle className="text-xl">{tile.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-secondary">{tile.content}</p>
-              </CardContent>
-            </Card>
+            index === 0 ? (
+              <Link to="/jpmc-highlights" key={index}>
+                <Card className="bg-[#141414] border-[#333333] text-white transition-all duration-300 hover:translate-y-[-2px]">
+                  <CardHeader>
+                    <CardTitle className="text-xl">{tile.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-secondary">{tile.content}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ) : (
+              <Card key={index} className="bg-[#141414] border-[#333333] text-white">
+                <CardHeader>
+                  <CardTitle className="text-xl">{tile.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-secondary">{tile.content}</p>
+                </CardContent>
+              </Card>
+            )
           ))}
         </div>
       ) : (
