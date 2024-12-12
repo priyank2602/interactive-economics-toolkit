@@ -20,7 +20,7 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }
   const [messages, setMessages] = useState<Message[]>([
     {
       type: 'bot',
-      content: "Hello! I'm your iEAT Co Pilot. How can I assist you with JPMC insights today?"
+      content: "Hello! I'm your iEAT Canvas. How can I assist you with JPMC insights today?"
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
@@ -86,7 +86,7 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis }
           } animate-scale-in`}
         >
           <div className="p-4 border-b border-[#333333] flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-white">iEAT Co Pilot</h3>
+            <h3 className="text-lg font-semibold text-white">iEAT Canvas</h3>
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleDock}
