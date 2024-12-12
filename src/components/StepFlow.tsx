@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { StockPriceChart } from "./StockPriceChart";
 import { useLocation } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface StepProps {
   step: number;
@@ -42,6 +43,30 @@ const getInsightText = (query: string | null) => {
   
   const lowerQuery = query.toLowerCase();
   
+  if (lowerQuery.includes('build story') && lowerQuery.includes('ceo')) {
+    return {
+      showTiles: true,
+      tiles: [
+        {
+          title: "Strategic Vision",
+          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          title: "Financial Performance",
+          content: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        {
+          title: "Market Position",
+          content: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+          title: "Future Outlook",
+          content: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+      ]
+    };
+  }
+  
   if (lowerQuery.includes('tesla')) {
     return "Based on the analyzed market trends and financial indicators, we observe significant volatility in the stock price over the past month. The price movements suggest a general upward trend with notable resistance levels. Consider monitoring key support and resistance zones for potential trading opportunities.";
   }
@@ -74,15 +99,13 @@ Asset & Wealth Management (AWM) reported a 14% increase in asset management fees
   return "Based on the analyzed data and trends, we've identified key patterns and insights relevant to your query. The analysis suggests important developments that warrant attention and could influence decision-making processes.";
 };
 
-interface StepFlowProps {
-  onStep2Complete?: () => void;
-}
-
 export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get('q');
   const showChart = query?.toLowerCase().includes('tesla');
+  const insights = getInsightText(query);
+  const showTiles = typeof insights === 'object' && insights.showTiles;
 
   const [currentStep, setCurrentStep] = useState(1);
   const [progress1, setProgress1] = useState(0);
@@ -179,14 +202,31 @@ export const StepFlow = ({ onStep2Complete }: StepFlowProps) => {
       )}
 
       {isComplete && (
-        <div className="mt-8 p-6 bg-[#141414] border border-[#333333] rounded-lg animate-fade-in">
-          <h3 className="text-xl font-semibold mb-2 text-white">Insights</h3>
-          <p className="text-secondary text-sm mb-4">
-            Data collection completed → Market trends analyzed → Actionable insights generated
-          </p>
-          <p className="text-secondary whitespace-pre-line">
-            {getInsightText(query)}
-          </p>
+        <div className="mt-8 animate-fade-in">
+          {showTiles ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {insights.tiles.map((tile, index) => (
+                <Card key={index} className="bg-[#141414] border-[#333333] text-white">
+                  <CardHeader>
+                    <CardTitle className="text-xl">{tile.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-secondary">{tile.content}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-[#141414] border border-[#333333] p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2 text-white">Insights</h3>
+              <p className="text-secondary text-sm mb-4">
+                Data collection completed → Market trends analyzed → Actionable insights generated
+              </p>
+              <p className="text-secondary whitespace-pre-line">
+                {typeof insights === 'string' ? insights : ''}
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
