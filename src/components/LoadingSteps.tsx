@@ -1,6 +1,7 @@
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { InsightsDisplay } from "./InsightsDisplay";
+import { getInsightText } from "@/utils/insightUtils";
 
 interface LoadingStepsProps {
   query: string;
