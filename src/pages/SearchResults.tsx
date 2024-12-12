@@ -3,9 +3,9 @@ import { SearchResultsBar } from "@/components/SearchResultsBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Plus } from "lucide-react";
-import { StepFlow } from "@/components/StepFlow";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from "react";
+import { LoadingSteps } from "@/components/LoadingSteps";
 
 interface Tab {
   id: string;
@@ -54,7 +54,7 @@ const SearchResults = () => {
     <div className="space-y-8">
       <div className="bg-black border-[#333333] p-6 rounded-lg shadow-sm border">
         <h2 className="text-xl font-semibold mb-4 text-white">Analysis Progress</h2>
-        <StepFlow onStep2Complete={() => {}} />
+        <LoadingSteps query={query} />
       </div>
 
       <div className="bg-black border-[#333333] p-6 rounded-lg shadow-sm border">
