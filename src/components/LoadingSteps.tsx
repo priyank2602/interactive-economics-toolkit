@@ -46,7 +46,7 @@ export const LoadingSteps = ({ query }: LoadingStepsProps) => {
   return (
     <div className="space-y-8">
       {showLoadingSteps && (
-        <div className="bg-black border-[#333333] p-6 rounded-lg shadow-sm border">
+        <div className="bg-black border-[#333333] p-6 rounded-lg shadow-sm border animate-fade-in">
           <div className="flex flex-col items-center justify-center gap-6">
             <Loader2 className={`w-12 h-12 animate-spin ${isComplete ? 'text-green-500' : 'text-primary'}`} />
             <div className="space-y-4 w-full max-w-2xl">
