@@ -11,7 +11,8 @@ const SearchResults = () => {
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get('q');
 
-  const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [showSources, setShowSources] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [steps, setSteps] = useState([
     {
       title: "Information Gathering",
@@ -54,19 +55,30 @@ const SearchResults = () => {
 
   useEffect(() => {
     const completeSteps = async () => {
-      // Simulate step completion
-      for (let i = 0; i < steps.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setSteps(prev => prev.map((step, index) => 
-          index === i ? { ...step, completed: true } : step
-        ));
-      }
-      setAnalysisComplete(true);
+      if (!query) return;
+
+      // Step 1: Information Gathering
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSteps(prev => prev.map((step, index) => 
+        index === 0 ? { ...step, completed: true } : step
+      ));
+      setShowSources(true);
+
+      // Step 2: Analysis
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSteps(prev => prev.map((step, index) => 
+        index === 1 ? { ...step, completed: true } : step
+      ));
+
+      // Step 3: Response Generation
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSteps(prev => prev.map((step, index) => 
+        index === 2 ? { ...step, completed: true } : step
+      ));
+      setShowAnswer(true);
     };
 
-    if (query) {
-      completeSteps();
-    }
+    completeSteps();
   }, [query]);
 
   return (
@@ -80,9 +92,13 @@ const SearchResults = () => {
           <div className="mt-8 space-y-8">
             <AnalysisSteps steps={steps} />
             
-            <SearchSources sources={sources} />
+            {showSources && (
+              <div className="animate-fade-in">
+                <SearchSources sources={sources} />
+              </div>
+            )}
 
-            {analysisComplete && (
+            {showAnswer && (
               <div className="animate-fade-in">
                 <Card className="bg-[#141414] border-[#333333] p-6">
                   <h2 className="text-xl font-semibold mb-4 text-white">Answer</h2>
