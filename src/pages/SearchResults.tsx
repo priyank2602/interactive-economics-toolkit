@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AnalysisSteps } from "@/components/AnalysisSteps";
 import { SearchSources } from "@/components/SearchSources";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { InsightsDisplay } from "@/components/InsightsDisplay";
+import { getInsightText } from "@/utils/insightUtils";
 
 const SearchResults = () => {
   const location = useLocation();
@@ -33,7 +33,7 @@ const SearchResults = () => {
     }
   ]);
 
-  // Mock sources data - in a real app, this would come from your API
+  // Mock sources data
   const sources = [
     {
       title: "Apple agrees to pay $95 million to settle lawsuit",
@@ -84,8 +84,8 @@ const SearchResults = () => {
     completeSteps();
   }, [query]);
 
-  const isAnalyzing = steps[1].completed === false || steps[2].completed === false;
-  const showAnswerComponent = steps[0].completed;
+  const insights = getInsightText(query);
+  const showChart = query?.toLowerCase().includes('tesla');
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -102,27 +102,13 @@ const SearchResults = () => {
               </div>
             )}
 
-            {showAnswerComponent && (
+            {showAnswer && (
               <div className="animate-fade-in">
-                <Card className="bg-[#141414] border-[#333333] p-6">
-                  <h2 className="text-xl font-semibold mb-4 text-white">Answer</h2>
-                  {isAnalyzing ? (
-                    <div className="space-y-3">
-                      <Skeleton className="h-4 w-full bg-[#333333]" />
-                      <Skeleton className="h-4 w-3/4 bg-[#333333]" />
-                      <Skeleton className="h-4 w-5/6 bg-[#333333]" />
-                    </div>
-                  ) : (
-                    <div className="prose prose-invert max-w-none">
-                      <p className="text-secondary">
-                        Apple has agreed to pay $95 million to settle a class-action lawsuit that accused 
-                        the company of recording Siri conversations without user consent. The settlement 
-                        covers Siri-enabled Apple devices owned between September 17, 2014, and December 31, 2024. 
-                        Users may be eligible for up to $20 per device, with a maximum of five devices per claimant.
-                      </p>
-                    </div>
-                  )}
-                </Card>
+                <InsightsDisplay 
+                  query={query}
+                  insights={insights}
+                  showChart={showChart}
+                />
               </div>
             )}
           </div>
