@@ -15,6 +15,7 @@ const SearchResults = () => {
   const [showSources, setShowSources] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
   const [steps, setSteps] = useState([
     {
       title: "Information Gathering",
@@ -65,6 +66,7 @@ const SearchResults = () => {
         index === 0 ? { ...step, completed: true } : step
       ));
       setShowSources(true);
+      setCurrentStep(1);
 
       // Step 2: Analysis
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -72,6 +74,7 @@ const SearchResults = () => {
         index === 1 ? { ...step, completed: true } : step
       ));
       setShowAnswer(true);
+      setCurrentStep(2);
 
       // Step 3: Response Generation
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -79,6 +82,7 @@ const SearchResults = () => {
         index === 2 ? { ...step, completed: true } : step
       ));
       setShowSearchBar(true);
+      setCurrentStep(3);
     };
 
     completeSteps();
@@ -94,15 +98,18 @@ const SearchResults = () => {
       <main className="container mx-auto px-4 pt-24 pb-32">
         <div className="max-w-4xl mx-auto">
           <div className="mt-8 space-y-8">
-            <AnalysisSteps steps={steps} />
-            
-            {showSources && (
-              <div className="animate-fade-in">
-                <SearchSources sources={sources} />
-              </div>
+            {currentStep === 1 && (
+              <>
+                <AnalysisSteps steps={steps} />
+                {showSources && (
+                  <div className="animate-fade-in">
+                    <SearchSources sources={sources} />
+                  </div>
+                )}
+              </>
             )}
 
-            {showAnswer && (
+            {(currentStep === 2 || currentStep === 3) && (
               <div className="animate-fade-in">
                 <InsightsDisplay 
                   query={query}
