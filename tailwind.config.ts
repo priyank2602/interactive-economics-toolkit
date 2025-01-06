@@ -40,6 +40,20 @@ export default {
           foreground: "#0f172a",
         }
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'inherit',
+            a: {
+              color: '#9b87f5',
+              '&:hover': {
+                color: '#8670f4',
+              },
+            },
+          },
+        },
+      },
       borderRadius: {
         lg: "1rem",
         md: "0.75rem",
@@ -66,5 +80,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
