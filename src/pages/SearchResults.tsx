@@ -83,6 +83,7 @@ const SearchResults = () => {
   }, [query]);
 
   const isAnalyzing = steps[1].completed === false || steps[2].completed === false;
+  const showAnswerComponent = steps[0].completed; // Only show answer component after step 1 is complete
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -101,7 +102,7 @@ const SearchResults = () => {
               </div>
             )}
 
-            {(isAnalyzing || showAnswer) && (
+            {showAnswerComponent && (
               <div className="animate-fade-in">
                 <Card className="bg-[#141414] border-[#333333] p-6">
                   <h2 className="text-xl font-semibold mb-4 text-white">Answer</h2>
