@@ -83,16 +83,14 @@ const SearchResults = () => {
   }, [query]);
 
   const isAnalyzing = steps[1].completed === false || steps[2].completed === false;
-  const showAnswerComponent = steps[0].completed; // Only show answer component after step 1 is complete
+  const showAnswerComponent = steps[0].completed;
 
   return (
     <div className="min-h-screen bg-black text-white">
       <Header />
       
-      <main className="container mx-auto px-4 pt-24 pb-16">
+      <main className="container mx-auto px-4 pt-24 pb-32">
         <div className="max-w-4xl mx-auto">
-          <SearchResultsBar />
-
           <div className="mt-8 space-y-8">
             <AnalysisSteps steps={steps} />
             
@@ -128,6 +126,8 @@ const SearchResults = () => {
           </div>
         </div>
       </main>
+
+      <SearchResultsBar />
     </div>
   );
 };
