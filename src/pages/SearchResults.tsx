@@ -14,6 +14,7 @@ const SearchResults = () => {
 
   const [showSources, setShowSources] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
   const [steps, setSteps] = useState([
     {
       title: "Information Gathering",
@@ -70,13 +71,14 @@ const SearchResults = () => {
       setSteps(prev => prev.map((step, index) => 
         index === 1 ? { ...step, completed: true } : step
       ));
+      setShowAnswer(true);
 
       // Step 3: Response Generation
       await new Promise(resolve => setTimeout(resolve, 2000));
       setSteps(prev => prev.map((step, index) => 
         index === 2 ? { ...step, completed: true } : step
       ));
-      setShowAnswer(true);
+      setShowSearchBar(true);
     };
 
     completeSteps();
@@ -127,7 +129,7 @@ const SearchResults = () => {
         </div>
       </main>
 
-      <SearchResultsBar />
+      {showSearchBar && <SearchResultsBar />}
     </div>
   );
 };
