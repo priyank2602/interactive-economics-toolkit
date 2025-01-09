@@ -55,8 +55,12 @@ const JPMCHighlights = () => {
     });
   };
 
-  const handleShowCEOCommentary = async () => {
+  const handleShowCEOCommentary = () => {
     setShowCEOCommentary(true);
+  };
+
+  const handleCloseCEOCommentary = () => {
+    setShowCEOCommentary(false);
   };
 
   return (
@@ -114,7 +118,10 @@ const JPMCHighlights = () => {
 
           {showCEOCommentary && (
             <section>
-              <CEOCommentary commentary={ceoCommentaryQ32024} />
+              <CEOCommentary 
+                commentary={ceoCommentaryQ32024} 
+                onClose={handleCloseCEOCommentary}
+              />
             </section>
           )}
         </div>
