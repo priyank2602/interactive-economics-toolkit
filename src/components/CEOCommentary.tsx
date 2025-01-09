@@ -1,5 +1,6 @@
 import { Card } from "./ui/card";
 import { X } from "lucide-react";
+import { useState } from "react";
 
 interface CEOCommentaryProps {
   commentary: string[];
@@ -7,12 +8,21 @@ interface CEOCommentaryProps {
 }
 
 export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose?.();
+    }, 300); // Match the animation duration
+  };
+
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">JPMC CEO Commentary</h2>
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="text-gray-400 hover:text-gray-300 transition-colors"
           aria-label="Close CEO Commentary"
         >
