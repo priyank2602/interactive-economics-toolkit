@@ -25,6 +25,7 @@ const JPMCHighlights = () => {
   const [showDividendAnalysis, setShowDividendAnalysis] = useState(false);
   const [isDividendLoading, setIsDividendLoading] = useState(false);
   const [isStockChartLoading, setIsStockChartLoading] = useState(false);
+  const [showCEOCommentary, setShowCEOCommentary] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,6 +53,10 @@ const JPMCHighlights = () => {
         resolve();
       }, 3000);
     });
+  };
+
+  const handleShowCEOCommentary = async () => {
+    setShowCEOCommentary(true);
   };
 
   return (
@@ -107,15 +112,18 @@ const JPMCHighlights = () => {
             <JPMCInsights />
           </section>
 
-          <section>
-            <CEOCommentary commentary={ceoCommentaryQ32024} />
-          </section>
+          {showCEOCommentary && (
+            <section>
+              <CEOCommentary commentary={ceoCommentaryQ32024} />
+            </section>
+          )}
         </div>
       </main>
 
       <CoPilotWidget 
         onUpdateStockPriceDays={handleUpdateStockPriceDays}
         onShowDividendAnalysis={handleShowDividendAnalysis}
+        onShowCEOCommentary={handleShowCEOCommentary}
       />
     </div>
   );
