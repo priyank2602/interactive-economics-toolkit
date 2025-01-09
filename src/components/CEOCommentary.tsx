@@ -43,12 +43,12 @@ export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
         <div className="prose prose-sm max-w-none dark:prose-invert">
           {isLoading ? (
             <div className="space-y-4">
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-[90%]" />
-              <Skeleton className="h-4 w-[95%]" />
-              <Skeleton className="h-4 w-[85%]" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-[92%]" />
+              <Skeleton className="h-4 w-full bg-[#8E9196]" />
+              <Skeleton className="h-4 w-[90%] bg-[#8E9196]" />
+              <Skeleton className="h-4 w-[95%] bg-[#8E9196]" />
+              <Skeleton className="h-4 w-[85%] bg-[#8E9196]" />
+              <Skeleton className="h-4 w-full bg-[#8E9196]" />
+              <Skeleton className="h-4 w-[92%] bg-[#8E9196]" />
             </div>
           ) : (
             commentary.map((paragraph, index) => (
