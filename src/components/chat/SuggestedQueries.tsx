@@ -1,10 +1,15 @@
 interface SuggestedQueriesProps {
   onQuerySelect: (query: string) => void;
+  isLoading?: boolean;
 }
 
-export const SuggestedQueries = ({ onQuerySelect }: SuggestedQueriesProps) => {
+export const SuggestedQueries = ({ onQuerySelect, isLoading }: SuggestedQueriesProps) => {
   const isCEOQuery = (window as any).lastQuery?.toLowerCase().includes('ceo') || 
                      (window as any).lastQuery?.toLowerCase().includes('q3 2024');
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="space-y-2">
