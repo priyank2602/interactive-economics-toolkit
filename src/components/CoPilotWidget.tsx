@@ -29,6 +29,7 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
   const [isLoadingChart, setIsLoadingChart] = useState(false);
 
   const handleSendMessage = async (text: string) => {
+    (window as any).lastQuery = text;
     setMessages(prev => [...prev, { type: 'user', content: text }]);
     setInputValue('');
     setIsTyping(true);
