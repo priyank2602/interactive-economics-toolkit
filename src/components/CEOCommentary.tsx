@@ -1,6 +1,7 @@
 import { Card } from "./ui/card";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 interface CEOCommentaryProps {
   commentary: string[];
@@ -9,6 +10,15 @@ interface CEOCommentaryProps {
 
 export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -31,9 +41,20 @@ export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
       </div>
       <Card className="p-6">
         <div className="prose prose-sm max-w-none dark:prose-invert">
-          {commentary.map((paragraph, index) => (
-            <p key={index} className="my-2">{paragraph}</p>
-          ))}
+          {isLoading ? (
+            <div className="space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-[90%]" />
+              <Skeleton className="h-4 w-[95%]" />
+              <Skeleton className="h-4 w-[85%]" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-[92%]" />
+            </div>
+          ) : (
+            commentary.map((paragraph, index) => (
+              <p key={index} className="my-2">{paragraph}</p>
+            ))
+          )}
         </div>
       </Card>
     </div>
