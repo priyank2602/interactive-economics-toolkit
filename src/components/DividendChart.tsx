@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryVoronoiContainer } from 'victory';
+import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip, VictoryVoronoiContainer } from 'victory';
 
 const annualData = [
   { year: '2020', dividend: 3.60 },
@@ -96,21 +96,20 @@ export const DividendChart = () => {
               }
             }}
           />
-          <VictoryBar
+          <VictoryLine
             data={showAnnual ? annualData : quarterlyData}
             x={showAnnual ? "year" : "quarter"}
             y="dividend"
             style={{
               data: { 
-                fill: '#9b87f5',
-                width: 25
+                stroke: '#9b87f5',
+                strokeWidth: 2
               }
             }}
             animate={{
               duration: 500,
               onLoad: { duration: 500 }
             }}
-            cornerRadius={{ top: 4 }}
           />
         </VictoryChart>
       </div>
