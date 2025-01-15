@@ -57,6 +57,7 @@ export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
           )}
         </div>
       </Card>
+      <p className="text-sm text-gray-400 italic text-center">iEAT can make mistakes. Please review before you share</p>
     </div>
   );
 };
