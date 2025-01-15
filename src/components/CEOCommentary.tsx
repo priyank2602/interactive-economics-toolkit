@@ -32,9 +32,6 @@ export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
-    if (!isEditing) {
-      setEditedCommentary([...commentary]);
-    }
   };
 
   const handleTextChange = (index: number, value: string) => {
