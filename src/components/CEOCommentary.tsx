@@ -1,5 +1,5 @@
 import { Card } from "./ui/card";
-import { X, Pencil } from "lucide-react";
+import { X, Pencil, Save } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { Textarea } from "./ui/textarea";
@@ -51,9 +51,13 @@ export const CEOCommentary = ({ commentary, onClose }: CEOCommentaryProps) => {
           <button
             onClick={handleEdit}
             className="text-gray-400 hover:text-gray-300 transition-colors"
-            aria-label="Edit CEO Commentary"
+            aria-label={isEditing ? "Save CEO Commentary" : "Edit CEO Commentary"}
           >
-            <Pencil className="h-5 w-5" />
+            {isEditing ? (
+              <Save className="h-5 w-5" />
+            ) : (
+              <Pencil className="h-5 w-5" />
+            )}
           </button>
           <button
             onClick={handleClose}
