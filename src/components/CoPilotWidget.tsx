@@ -57,6 +57,12 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
       } catch (error) {
         console.error('Error showing dividend analysis:', error);
       }
+    } else if (text.toLowerCase().includes('summarize') && text.toLowerCase().includes('ceo')) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        content: "The Firm posted Q3 net income of $12.9B with an ROTCE of 19%, driven by a 31% jump in investment banking fees and an 11% rise in card loans. Payments fees grew at a double-digit rate, the Firm maintained its #1 position in U.S. retail deposits for the 4th year, and Asset & Wealth Management notched record net inflows of $72B. Total loss-absorbing capacity stands at $544B, supported by $1.5T in cash and marketable securities, while loans total $1.3T. Amid geopolitical uncertainty and inflation concerns, Jamie Dimon highlighted disciplined share repurchases, a strong balance sheet, and the Firm's commitment to serving 82M consumers and 6M small businesses."
+      }]);
     } else if (text.toLowerCase().includes('ceo commentary') || text.toLowerCase().includes('q3 2024')) {
       setIsCEOLoading(true);
       onShowCEOCommentary?.();
