@@ -1,8 +1,3 @@
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -10,25 +5,32 @@
   text-align: center;
 }
 
-:root {
-  --background: #000000;
-  --foreground: #FFFFFF;
-  --primary: #9b87f5;
-  --primary-foreground: #FFFFFF;
-  --secondary: #7E69AB;
-  --secondary-foreground: #FFFFFF;
-  --muted: #1A1F2C;
-  --muted-foreground: #8E9196;
-  --accent: #6E59A5;
-  --accent-foreground: #FFFFFF;
-  --border: #333333;
-  --soft-bg: #F1F0FB;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--background);
-  color: var(--foreground);
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
 .card {
@@ -36,52 +38,5 @@ body {
 }
 
 .read-the-docs {
-  color: var(--muted-foreground);
-}
-
-/* Untitled UI Cards */
-.ui-card {
-  @apply bg-[#141414] border border-[#333333] rounded-lg shadow-sm transition-all duration-200;
-}
-
-.ui-card:hover {
-  @apply border-primary/20;
-}
-
-/* Untitled UI Buttons */
-.ui-button {
-  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 
-         flex items-center justify-center gap-2;
-}
-
-.ui-button-primary {
-  @apply bg-primary text-primary-foreground hover:bg-primary/90;
-}
-
-.ui-button-secondary {
-  @apply bg-secondary text-secondary-foreground hover:bg-secondary/90;
-}
-
-/* Untitled UI Text Styles */
-.ui-heading {
-  @apply text-2xl font-semibold tracking-tight;
-}
-
-.ui-subheading {
-  @apply text-lg font-medium text-muted-foreground;
-}
-
-.ui-text {
-  @apply text-base text-foreground;
-}
-
-.ui-text-muted {
-  @apply text-sm text-muted-foreground;
-}
-
-/* Untitled UI Form Elements */
-.ui-input {
-  @apply px-3 py-2 rounded-lg border border-[#333333] bg-[#141414] 
-         text-foreground placeholder:text-muted-foreground focus:outline-none 
-         focus:ring-2 focus:ring-primary/20;
+  color: #888;
 }

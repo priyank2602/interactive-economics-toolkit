@@ -1,4 +1,3 @@
-
 import { MessageCircle, X } from "lucide-react";
 import { useState } from "react";
 import { ChatMessage } from "./chat/ChatMessage";
@@ -99,25 +98,25 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
     }`}>
       {isOpen ? (
         <div 
-          className={`ui-card ${
+          className={`bg-[#141414] border border-[#333333] rounded-lg shadow-lg transition-all duration-300 ${
             isDocked 
               ? 'w-[400px] h-full rounded-none border-r-0 border-t-0 border-b-0' 
               : 'w-[320px] h-[400px]'
           } animate-scale-in`}
         >
           <div className="p-4 border-b border-[#333333] flex items-center justify-between">
-            <h3 className="ui-heading text-lg">iEAT Canvas</h3>
+            <h3 className="text-lg font-semibold text-white">iEAT Canvas</h3>
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleDock}
-                className="ui-button hover:bg-muted"
+                className="text-gray-400 hover:text-white transition-colors p-1"
                 title={isDocked ? "Undock" : "Dock to side"}
               >
                 <div className={`w-4 h-4 border-2 border-current rounded-sm transition-transform ${isDocked ? 'rotate-180' : ''}`} />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="ui-button hover:bg-muted"
+                className="text-gray-400 hover:text-white transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -129,11 +128,11 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
                 <ChatMessage key={index} type={message.type} content={message.content} />
               ))}
               {isTyping && (
-                <div className="bg-muted rounded-lg p-3">
+                <div className="bg-[#1e1e1e] rounded p-3 text-sm text-white">
                   <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce" />
-                    <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-delay:0.2s]" />
-                    <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-delay:0.4s]" />
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               )}
@@ -150,7 +149,7 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
                   }
                 }}
                 placeholder="Type your message..."
-                className="ui-input flex-1"
+                className="flex-1 bg-[#1e1e1e] border border-[#333333] rounded px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-primary"
               />
               <button 
                 onClick={() => {
@@ -158,7 +157,7 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
                     handleSendMessage(inputValue.trim());
                   }
                 }}
-                className="ui-button ui-button-primary"
+                className="bg-primary hover:bg-primary/90 text-white px-3 py-2 rounded text-sm transition-colors"
               >
                 Send
               </button>
@@ -168,7 +167,7 @@ export const CoPilotWidget = ({ onUpdateStockPriceDays, onShowDividendAnalysis, 
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="ui-button ui-button-primary rounded-full shadow-lg animate-fade-in"
+          className="bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-colors animate-fade-in"
         >
           <MessageCircle className="h-6 w-6" />
         </button>
