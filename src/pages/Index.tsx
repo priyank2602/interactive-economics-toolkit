@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { HighlightCard } from "@/components/HighlightCard";
@@ -8,15 +9,15 @@ const { Title, Paragraph } = Typography;
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#000000] flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       <Header />
       
       <main className="container mx-auto px-4 pt-32 pb-16 space-y-12 flex-grow">
         <div className="text-center mb-8 space-y-4">
-          <Title style={{ color: '#fff', fontSize: '48px', marginBottom: '16px' }}>
+          <Title style={{ color: '#101828', fontSize: '48px', marginBottom: '16px', fontWeight: '600' }}>
             Interactive Economic Analysis Tool
           </Title>
-          <Paragraph style={{ color: 'rgba(255, 255, 255, 0.65)', fontSize: '18px' }}>
+          <Paragraph style={{ color: '#667085', fontSize: '18px', maxWidth: '768px', margin: '0 auto' }}>
             A self-improving analysis layer for LLM applications, enabling personalized
             AI experiences that save costs and delight users.
           </Paragraph>
