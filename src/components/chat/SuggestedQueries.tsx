@@ -1,3 +1,4 @@
+
 interface SuggestedQueriesProps {
   onQuerySelect: (query: string) => void;
   isLoading?: boolean;
@@ -13,11 +14,11 @@ export const SuggestedQueries = ({ onQuerySelect, isLoading }: SuggestedQueriesP
 
   return (
     <div className="space-y-2">
-      <div className="text-sm text-gray-400">Suggested Queries:</div>
+      <div className="ui-text-muted">Suggested Queries:</div>
       {isCEOQuery ? (
         <button 
           onClick={() => onQuerySelect("Summarize the CEO comments")}
-          className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
+          className="w-full text-left ui-card p-2 text-sm hover:bg-muted/50"
         >
           Summarize the CEO comments
         </button>
@@ -25,13 +26,13 @@ export const SuggestedQueries = ({ onQuerySelect, isLoading }: SuggestedQueriesP
         <>
           <button 
             onClick={() => onQuerySelect("Summarize Market Events")}
-            className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
+            className="w-full text-left ui-card p-2 text-sm hover:bg-muted/50"
           >
             Summarize Market Events
           </button>
           <button 
             onClick={() => onQuerySelect("Help me with divisional results")}
-            className="w-full text-left bg-[#1e1e1e] hover:bg-[#2e2e2e] rounded p-2 text-sm text-white transition-colors"
+            className="w-full text-left ui-card p-2 text-sm hover:bg-muted/50"
           >
             Help me with divisional results
           </button>

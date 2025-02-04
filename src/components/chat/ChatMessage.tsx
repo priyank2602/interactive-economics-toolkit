@@ -1,3 +1,4 @@
+
 import { MessageCircle, MessageSquare, ThumbsUp, ThumbsDown } from "lucide-react";
 import { useState } from "react";
 
@@ -10,10 +11,10 @@ export const ChatMessage = ({ type, content }: ChatMessageProps) => {
   const [feedback, setFeedback] = useState<'up' | 'down' | null>(null);
 
   return (
-    <div className={`rounded p-3 text-sm whitespace-pre-wrap ${
+    <div className={`rounded-lg p-3 text-sm whitespace-pre-wrap ${
       type === 'user' 
-        ? 'bg-[#1e1e1e] text-white' 
-        : 'bg-[#2a2a2a] text-[#9b87f5]'
+        ? 'bg-muted text-foreground' 
+        : 'bg-[#2a2a2a] text-primary'
     }`}>
       <div className="flex gap-2">
         {type === 'user' ? (
@@ -26,8 +27,8 @@ export const ChatMessage = ({ type, content }: ChatMessageProps) => {
           <div className="flex gap-2 items-start ml-2">
             <button
               onClick={() => setFeedback('up')}
-              className={`p-1 rounded hover:bg-[#3a3a3a] transition-colors ${
-                feedback === 'up' ? 'text-green-500' : 'text-gray-400'
+              className={`p-1.5 rounded-lg hover:bg-muted transition-colors ${
+                feedback === 'up' ? 'text-[#F2FCE2]' : 'text-muted-foreground'
               }`}
               aria-label="Thumbs up"
             >
@@ -35,8 +36,8 @@ export const ChatMessage = ({ type, content }: ChatMessageProps) => {
             </button>
             <button
               onClick={() => setFeedback('down')}
-              className={`p-1 rounded hover:bg-[#3a3a3a] transition-colors ${
-                feedback === 'down' ? 'text-red-500' : 'text-gray-400'
+              className={`p-1.5 rounded-lg hover:bg-muted transition-colors ${
+                feedback === 'down' ? 'text-[#FFDEE2]' : 'text-muted-foreground'
               }`}
               aria-label="Thumbs down"
             >
